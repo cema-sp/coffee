@@ -1,0 +1,12 @@
+development:
+  sessions:
+    default:
+      database: coffee-dev
+      hosts:
+        - 192.168.122.247:27017
+test:
+  sessions:
+    default:
+      database: coffee-test
+      hosts:
+        - 192.168.122.247:27017
