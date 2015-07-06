@@ -2,19 +2,20 @@ require File.expand_path '../../../spec_helper.rb', __FILE__
 require 'pry'
 
 RSpec.describe 'CoffeeServer::API - points' do
+  let(:version) { '1' }
+  let(:request_headers) do
+    {
+      'HTTP_ACCEPT' => 'application/vnd.api+json',
+      'HTTP_CONTENT_TYPE' => 'application/vnd.api+json;charset=utf-8'
+    }
+  end
+
   describe 'GET /points/:id' do
-        
+    # 
   end
 
   describe 'POST /points' do
-    let(:version) { '1' }
     let(:request_path) { "/api/v#{version}/points" }
-    let(:request_headers) do
-      {
-        'HTTP_ACCEPT' => 'application/vnd.api+json',
-        'HTTP_CONTENT_TYPE' => 'application/vnd.api+json;charset=utf-8'
-      }
-    end
     let(:point) { CoffeeServer::Point.new(coordinates: {lat: 1, lon: 2}) }
     let(:response) { post(request_path, point.to_json, request_headers) }
 
