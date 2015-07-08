@@ -85,7 +85,6 @@ module CoffeeServer
       # #show
       get '/:id' do
         begin
-          # request.body.rewind
           point = Point.find(params[:id])
 
           [ 200, {'Location' => "/#{point._id}"}, point.to_json ]
@@ -100,6 +99,7 @@ module CoffeeServer
           request.body.rewind
           point_raw = JSON.parse request.body.read
           point_raw.delete("_id")
+
           point = Point.new(point_raw)
           point.save!
 
@@ -117,10 +117,24 @@ module CoffeeServer
           point_raw.delete("_id")
 
           point = Point.find(params[:id])
-
           point.update_attributes!(point_raw)
 
           [ 200, {'Location' => "/#{point._id}"}, point.to_json ]
+        rescue Mongoid::Errors::DocumentNotFound => error
+          halt_request(404, error.message)
+        rescue Exception => error
+          halt_request(403, error.message)
+        end
+      end
+
+      # #delete
+      delete '/:id' do
+        begin
+          point = Point.find(params[:id])
+
+          point.destroy
+
+          [ 200, {}, nil ]
         rescue Mongoid::Errors::DocumentNotFound => error
           halt_request(404, error.message)
         rescue Exception => error
