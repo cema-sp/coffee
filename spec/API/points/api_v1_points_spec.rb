@@ -11,7 +11,46 @@ RSpec.describe 'CoffeeServer::API - points' do
   end
 
   describe 'GET /points/:id' do
-    # 
+    let(:request_path) { "/api/v#{version}/points/#{point._id}" }
+    let(:point) do
+      CoffeeServer::Point
+        .create(coordinates: {lat: 1, lon: 2}, comment: 'test_comment')
+    end
+
+    let(:response) { get(request_path, nil, request_headers) }
+    
+    subject { response }
+
+    context 'with valid :id' do
+      its(:body) { should include('test_comment') }
+      its(:header) { should include('Location') }
+      its(:status) { should eq 200 }
+    end
+
+    context 'with invalid :id' do
+      let(:request_path) { "/api/v#{version}/points/#{point._id}000" }
+
+      its(:body) { should include('not found') }
+      its(:status) { should eq 404 }
+    end
+  end
+
+  describe 'GET /points' do
+    let(:request_path) { "/api/v#{version}/points" }
+    let!(:points) do
+      CoffeeServer::Point
+        .create([
+          {coordinates: {lat: 1, lon: 2}, comment: 'test_comment_1'},
+          {coordinates: {lat: 3, lon: 4}, comment: 'test_comment_2'}])
+    end
+
+    let(:response) { get(request_path, nil, request_headers) }
+    
+    subject { response }
+
+    its(:body) { should include('test_comment_1', 'test_comment_2') }
+    its(:header) { should_not include('Location') }
+    its(:status) { should eq 200 }
   end
 
   describe 'POST /points' do
@@ -69,6 +108,34 @@ RSpec.describe 'CoffeeServer::API - points' do
         its(:body) { should include('error', 'votes') }
         its(:status) { should eq 403 }
       end
+    end
+  end
+
+  describe 'PATCH /points/:id' do
+    let(:request_path) { "/api/v#{version}/points/#{point._id}" }
+    let(:point) do
+      CoffeeServer::Point
+        .create(coordinates: {lat: 1, lon: 2}, comment: 'test_comment')
+    end
+    let!(:point_new) { point.comment = 'test_comment_new' }
+
+    let(:response) { patch(request_path, point.to_json, request_headers) }
+    
+    subject { response }
+
+    context 'with valid :id' do
+      context 'with valid attributes' do
+        its(:body) { should include('test_comment_new') }
+        its(:header) { should include('Location' => "/#{point._id}") }
+        its(:status) { should eq 200 }
+      end
+    end
+
+    context 'with invalid :id' do
+      let(:request_path) { "/api/v#{version}/points/#{point._id}000" }
+
+      its(:body) { should include('not found') }
+      its(:status) { should eq 404 }
     end
   end
 end

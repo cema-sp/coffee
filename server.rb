@@ -72,14 +72,30 @@ module CoffeeServer
 
     set :version, '1'
 
-    namespace '/points' do
+    namespace '/points', provides: 'application/vnd.api+json' do
       before { check_header }
 
-      get '', provides: 'application/vnd.api+json' do
-        'points'
+      # #index
+      get '' do
+        points = Point.all
+
+        [ 200, {}, { points: points.to_json }.to_json ]
       end
 
-      post '', provides: 'application/vnd.api+json' do
+      # #show
+      get '/:id' do
+        begin
+          # request.body.rewind
+          point = Point.find(params[:id])
+
+          [ 200, {'Location' => "/#{point._id}"}, point.to_json ]
+        rescue Exception => error
+          halt_request(404, error.message)
+        end
+      end
+
+      # #create
+      post '' do
         begin
           request.body.rewind
           point_raw = JSON.parse request.body.read
@@ -92,11 +108,35 @@ module CoffeeServer
           halt_request(403, error.message)
         end
       end
+
+      # #update
+      patch '/:id' do
+        begin
+          request.body.rewind
+          point_raw = JSON.parse request.body.read
+          point_raw.delete("_id")
+
+          point = Point.find(params[:id])
+
+          point.update_attributes!(point_raw)
+
+          [ 200, {'Location' => "/#{point._id}"}, point.to_json ]
+        rescue Mongoid::Errors::DocumentNotFound => error
+          halt_request(404, error.message)
+        rescue Exception => error
+          halt_request(403, error.message)
+        end
+      end
     end
 
+    # Handle invalid Accept header
+    namespace '/points' do
+      before { check_header }
+    end
 
+    # Handle invalid object
     get '/*' do
-      "Invalid API object"  
+      halt_request(404, "Invalid API object: #{params['captures']}")  
     end
   end
 end

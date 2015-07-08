@@ -41,6 +41,13 @@ RSpec.describe CoffeeServer::API do
         its(:body) { should include('error','path') }
         its(:status) { should eq 404 }
       end
+
+      describe 'object' do
+        let(:request_path) { "/api/v#{version}/invalid" }
+
+        its(:body) { should include('error','object','invalid') }
+        its(:status) { should eq 404 }
+      end
     end
 
     describe 'request' do
