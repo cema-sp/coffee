@@ -1,6 +1,7 @@
 require 'sinatra'
 require 'sinatra/namespace'
 require 'mongoid'
+require 'slim'
 require './helpers'
 require './point'
 
