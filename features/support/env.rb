@@ -5,7 +5,7 @@ require 'pry'
 
 require File.expand_path '../../../server.rb', __FILE__
 
-Mongoid.load!("mongoid.yml")
+Mongoid.load!("mongoid.yml", :test)
 
 Capybara.app = CoffeeServer.app
 
