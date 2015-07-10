@@ -10,7 +10,7 @@ require 'pry'
 
 ENV['RACK_ENV'] = 'test'
 
-Mongoid.load!("mongoid.yml")
+Mongoid.load!("mongoid.yml", :test)
 
 module RSpecMixin
   include Rack::Test::Methods
