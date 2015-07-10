@@ -83,7 +83,7 @@ module CoffeeServer
       get '' do
         points = Point.all
 
-        [ 200, {}, { points: points.to_json }.to_json ]
+        [ 200, {}, { points: points }.to_json ]
       end
 
       # #show
@@ -138,7 +138,7 @@ module CoffeeServer
 
           point.destroy
 
-          [ 200, {}, nil ]
+          [ 200, {}, {}.to_json ]
         rescue Mongoid::Errors::DocumentNotFound => error
           halt_request(404, error.message)
         rescue Exception => error
