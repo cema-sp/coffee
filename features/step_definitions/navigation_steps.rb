@@ -1,5 +1,3 @@
-require 'pry'
-
 Когда(/^я открываю сайт$/) do
   @response = page.request '/'
 end

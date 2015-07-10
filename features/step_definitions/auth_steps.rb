@@ -1,5 +1,3 @@
-require 'pry'
-
 Пусть(/^я аутенфицированный пользователь$/) do
   page.digest_authorize 'admin', CoffeeServer::Admin.settings.admin_password
 end
