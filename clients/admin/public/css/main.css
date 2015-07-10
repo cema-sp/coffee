@@ -1,0 +1,62 @@
+table {
+
+}
+
+table, td {
+  border-collapse: collapse;
+  border: 1px solid black;
+}
+
+td {
+  padding: 10px;
+}
+
+thead {
+  background-color: #979797;
+  border-bottom: 2px solid black;
+}
+
+fieldset.coordinates {
+  border: none;
+}
+
+fieldset.coordinates input {
+  width: 80px;
+}
+
+div.flash {
+  border: 1px solid #C90000;
+  background-color: #FFA2A2;
+  max-width: 500px;
+}
+
+.invisible {
+  display: none;
+}
+
+.flash-appear {
+  opacity: 0.01;
+  transition: opacity 3s ease-in;
+}
+
+.flash-appear.flash-appear-active {
+  opacity: 1;
+}
+
+.flash-enter {
+  opacity: 0.01;
+  transition: opacity 3s ease-in;
+}
+
+.flash-enter.flash-enter-active {
+  opacity: 1;
+}
+
+.flash-leave {
+  opacity: 1;
+  transition: opacity 3s ease-in;
+}
+
+.flash-leave.flash-leave-active {
+  opacity: 0.01;
+}

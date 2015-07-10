@@ -1,0 +1,18 @@
+[
+  {
+    "_id": "5784357893475vn145",
+    "address": "Москва",
+    "coordinates": {"lat": 222, "lon": 334},
+    "predefined": true,
+    "votes": 1000,
+    "comment": "Хорошее место"
+  },
+  {
+    "_id": "5784357893475vn146",
+    "address": "Москва",
+    "coordinates": {"lat": 100, "lon": 200},
+    "predefined": true,
+    "votes": 1000,
+    "comment": "Плохое место"
+  }
+]
