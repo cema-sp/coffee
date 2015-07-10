@@ -31,8 +31,11 @@ module CoffeeServer
     set :secret, 'secretkey'
     set :admin_password, 'password'
 
+    set :views, (File.expand_path '../clients/admin', __FILE__)
+    set :public_folder, (File.expand_path '../clients/admin/public', __FILE__)
+
     get '/' do
-      'Здесь будет интерфейс администратора'
+      slim :index
     end
 
     def self.new(*)
