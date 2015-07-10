@@ -6,6 +6,8 @@ gem 'sinatra-contrib'
 
 gem 'mongoid', '~> 4.0.0'
 
+gem 'slim', require: false
+
 group :development do
   gem 'pry', require: false
   gem 'byebug'
