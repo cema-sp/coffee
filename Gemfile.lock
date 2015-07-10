@@ -101,7 +101,11 @@ GEM
       rack-test
       sinatra (~> 1.4.0)
       tilt (>= 1.3, < 3)
+    slim (3.0.6)
+      temple (~> 0.7.3)
+      tilt (>= 1.3.3, < 2.1)
     slop (3.6.0)
+    temple (0.7.6)
     thread_safe (0.3.5)
     tilt (2.0.1)
     tzinfo (1.2.2)
@@ -124,3 +128,4 @@ DEPENDENCIES
   shoulda-matchers!
   sinatra
   sinatra-contrib
+  slim
