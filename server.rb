@@ -20,7 +20,7 @@ module CoffeeServer
 
   # Public available part
   class Public < Sinatra::Base
-    get '/' do
+    get '/?' do
       'Здесь будет карта'
     end
   end
@@ -34,7 +34,7 @@ module CoffeeServer
     set :views, (File.expand_path '../clients/admin', __FILE__)
     set :public_folder, (File.expand_path '../clients/admin/public', __FILE__)
 
-    get '/' do
+    get '/?' do
       slim :index
     end
 
@@ -98,7 +98,7 @@ module CoffeeServer
       end
 
       # #create
-      post '' do
+      post '/?' do
         begin
           request.body.rewind
           point_raw = JSON.parse request.body.read
@@ -153,7 +153,7 @@ module CoffeeServer
     end
 
     # Handle invalid object
-    get '/*' do
+    get '/?*' do
       halt_request(404, "Invalid API object: #{params['captures']}")  
     end
   end
