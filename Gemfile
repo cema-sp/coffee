@@ -6,6 +6,8 @@ gem 'sinatra-contrib'
 
 gem 'mongoid', '~> 4.0.0'
 
+gem 'figaro'
+
 gem 'slim', require: false
 
 group :development do

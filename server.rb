@@ -36,10 +36,6 @@ module CoffeeServer
       register Sinatra::Reloader
     end
 
-    set :realm, 'Coffee Server'
-    set :secret, 'secretkey'
-    set :admin_password, 'password'
-
     set :views, (File.expand_path '../clients/admin', __FILE__)
     set :public_folder, (File.expand_path '../clients/admin/public', __FILE__)
 
@@ -49,10 +45,10 @@ module CoffeeServer
 
     def self.new(*)
       app = Rack::Auth::Digest::MD5.new(super) do |username|
-        {'admin' => settings.admin_password}[username]
+        {ENV['admin_login'] => ENV['admin_password']}[username]
       end
-      app.realm = settings.realm
-      app.opaque = settings.secret
+      app.realm = ENV['realm']
+      app.opaque = ENV['realm_secret']
       app
     end
   end
