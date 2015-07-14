@@ -7,9 +7,20 @@ require 'pry'
 
 require File.expand_path '../../../server.rb', __FILE__
 
-Mongoid.load!("config/mongoid.yml", :test)
-
 Capybara.app = CoffeeServer.app
 
-include Rack::Test::Methods
+class CoffeeServerWorld
+  include Rack::Test::Methods
+  include Capybara::DSL
+  include RSpec::Expectations
+  include RSpec::Matchers
+
+  def app; CoffeeServer.app; end
+end
+
+World do
+  CoffeeServerWorld.new
+end
+
 Dotenv.load!
+Mongoid.load!("config/mongoid.yml", :test)
