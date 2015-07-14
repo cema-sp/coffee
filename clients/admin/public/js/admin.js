@@ -45,6 +45,7 @@ var PointsTable = React.createClass({
     return (
       <form>
         <table>
+          <caption>Точки</caption>
           <PointsTableHeader
             { ...this.props }
             onPointSubmit={ this.handlePointSubmit } />
@@ -137,7 +138,8 @@ var PointsTableAddForm = React.createClass({
         <td><PointsFieldComment ref="comment" editMode={true} /></td>
         <td>
           <input type="button"
-            value="Добавить"
+            value="Создать"
+            alt="Создать"
             onClick={ this.handleSubmit } />
         </td>
       </tr>
@@ -385,14 +387,14 @@ var PointsTableRow = React.createClass({
   },
   render: function() {
     var rowButtons = [
-      <input type="button" key="edit" value="E" onClick={ this.editPoint } />,
-      <input type="button" key="delete" value="D" onClick={ this.deletePoint } />
+      <input type="button" key="edit" alt="Изменить" value="E" onClick={ this.editPoint } />,
+      <input type="button" key="delete" alt="Удалить" value="D" onClick={ this.deletePoint } />
     ];
 
     if (this.state.editMode) {
       rowButtons = [
-        <input type="button" key="save" value="S" onClick={ this.savePoint } />,
-        <input type="button" key="cancel" value="C" onClick={ this.cancelPoint } />
+        <input type="button" key="save" alt="Созранить" value="S" onClick={ this.savePoint } />,
+        <input type="button" key="cancel" alt="Отменить" value="C" onClick={ this.cancelPoint } />
       ];
     };
     return (

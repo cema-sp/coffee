@@ -1,7 +1,7 @@
 Когда(/^я открываю сайт$/) do
-  @response = page.request '/'
+  visit '/'
 end
 
 Когда(/^я открываю путь "([^"]*)"$/) do |path|
-  @response = page.request path
+  visit path
 end

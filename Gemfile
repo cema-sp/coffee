@@ -21,5 +21,6 @@ group :test do
   gem 'shoulda-matchers', github: 'thoughtbot/shoulda-matchers'
   gem 'database_cleaner'
   gem 'cucumber'
+  gem 'selenium-webdriver'
   gem 'capybara'
 end

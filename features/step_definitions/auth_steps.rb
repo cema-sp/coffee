@@ -1,7 +1,12 @@
 Пусть(/^я аутенфицированный пользователь$/) do
-  page.digest_authorize 'admin', CoffeeServer::Admin.settings.admin_password
+  module CoffeeServerHelpers
+    def authorized?; true; end
+  end
+
+  digest_authorize ENV['admin_login'], ENV['admin_password']
+  # page.driver.browser.digest_authorize ENV['admin_login'], ENV['admin_password']
 end
 
 То(/^я получаю ошибку авторизации$/) do
-  expect(@response.status).to eq 401
+  expect(page.status_code).to eq 401
 end
