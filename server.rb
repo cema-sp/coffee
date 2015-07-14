@@ -37,20 +37,15 @@ module CoffeeServer
       register Sinatra::Reloader
     end
 
+    helpers CoffeeServerHelpers
+
     set :views, (File.expand_path '../clients/admin', __FILE__)
     set :public_folder, (File.expand_path '../clients/admin/public', __FILE__)
 
+    before { protected! }
+
     get '/?' do
       slim :index
-    end
-
-    def self.new(*)
-      app = Rack::Auth::Digest::MD5.new(super) do |username|
-        {ENV['admin_login'] => ENV['admin_password']}[username]
-      end
-      app.realm = ENV['realm']
-      app.opaque = ENV['realm_secret']
-      app
     end
   end
 
