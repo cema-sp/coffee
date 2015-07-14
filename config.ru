@@ -1,7 +1,7 @@
 require 'pry'
 require './server'
 
-Mongoid.load!("mongoid.yml")
+Mongoid.load!("config/mongoid.yml")
 
 # binding.pry
 
