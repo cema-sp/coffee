@@ -6,7 +6,7 @@ gem 'sinatra-contrib'
 
 gem 'mongoid', '~> 4.0.0'
 
-gem 'figaro'
+gem 'dotenv'
 
 gem 'slim', require: false
 

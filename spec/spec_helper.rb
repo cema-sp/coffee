@@ -1,3 +1,5 @@
+ENV['RACK_ENV'] = 'test'
+
 require File.expand_path '../../server.rb', __FILE__
 
 require 'rack/test'
@@ -8,8 +10,7 @@ require 'database_cleaner'
 require 'pry'
 # require 'capybara/rspec'
 
-ENV['RACK_ENV'] = 'test'
-
+Dotenv.load!
 Mongoid.load!("config/mongoid.yml", :test)
 
 module RSpecMixin

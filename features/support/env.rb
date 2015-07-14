@@ -1,3 +1,5 @@
+ENV['RACK_ENV'] = 'test'
+
 require 'rack/test'
 require 'rspec/expectations'
 require 'capybara/cucumber'
@@ -10,3 +12,4 @@ Mongoid.load!("config/mongoid.yml", :test)
 Capybara.app = CoffeeServer.app
 
 include Rack::Test::Methods
+Dotenv.load!

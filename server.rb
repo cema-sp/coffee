@@ -1,6 +1,7 @@
 require 'sinatra'
 require 'sinatra/namespace'
 require 'sinatra/reloader'
+require 'dotenv'
 require 'mongoid'
 require 'slim'
 require './helpers'
