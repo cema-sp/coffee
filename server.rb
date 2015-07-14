@@ -1,5 +1,6 @@
 require 'sinatra'
 require 'sinatra/namespace'
+require 'sinatra/reloader'
 require 'mongoid'
 require 'slim'
 require './helpers'
@@ -20,6 +21,10 @@ module CoffeeServer
 
   # Public available part
   class Public < Sinatra::Base
+    configure :development do
+      register Sinatra::Reloader
+    end
+
     get '/?' do
       'Здесь будет карта'
     end
@@ -27,6 +32,10 @@ module CoffeeServer
 
   # Administrative panel
   class Admin < Sinatra::Base
+    configure :development do
+      register Sinatra::Reloader
+    end
+
     set :realm, 'Coffee Server'
     set :secret, 'secretkey'
     set :admin_password, 'password'
@@ -50,6 +59,10 @@ module CoffeeServer
 
   # API proxy
   class API < Sinatra::Base
+    configure :development do
+      register Sinatra::Reloader
+    end
+
     helpers CoffeeServerHelpers
 
     set :versions, ['1']
@@ -71,6 +84,10 @@ module CoffeeServer
 
   # API version 1
   class API_v1 < Sinatra::Base
+    configure :development do
+      register Sinatra::Reloader
+    end
+
     register Sinatra::Namespace
     helpers CoffeeServerHelpers
 
